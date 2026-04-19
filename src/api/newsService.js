@@ -25,3 +25,4 @@ export async function fetchPoliceNews(district = "") {
     source: { name: a.author || "Google News" }
   }));
 }
+// updated
