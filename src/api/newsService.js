@@ -1,23 +1,22 @@
-import axios from 'axios';
+import axios from "axios";
 
 export const AP_DISTRICTS = [
-  'Visakhapatnam', 'Vijayawada', 'Guntur', 'Tirupati',
-  'Kurnool', 'Nellore', 'Rajahmundry', 'Kakinada',
-  'Eluru', 'Ongole', 'Chittoor', 'Kadapa'
+  "Visakhapatnam", "Vijayawada", "Guntur", "Tirupati",
+  "Kurnool", "Nellore", "Rajahmundry", "Kakinada",
+  "Eluru", "Ongole", "Chittoor", "Kadapa"
 ];
 
-export async function fetchPoliceNews(district = '') {
+export async function fetchPoliceNews(district = "") {
   const query = district
-    ? district + ' crime OR police OR law OR arrest OR attack'
-    : 'Andhra Pradesh police crime law order arrest';
-  const res = await axios.get('https://newsapi.org/v2/everything', {
+    ? district + " crime police arrest"
+    : "Andhra Pradesh police crime";
+  const res = await axios.get("https://newsdata.io/api/1/news", {
     params: {
       q: query,
-      language: 'en',
-      sortBy: 'publishedAt',
-      pageSize: 12,
-      apiKey: import.meta.env.VITE_NEWS_API_KEY,
+      language: "en",
+      country: "in",
+      apikey: import.meta.env.VITE_NEWSDATA_API_KEY,
     }
   });
-  return res.data.articles.filter(a => a.title && a.description);
+  return res.data.results.filter(a => a.title && a.description);
 }
